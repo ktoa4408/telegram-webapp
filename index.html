@@ -6,115 +6,142 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     body {
-      background-color: #1e1e1e;
+      margin: 0;
+      padding: 0;
+      background-color: #12161c;
       color: white;
-      font-family: Arial, sans-serif;
-      padding: 2rem;
+      font-family: 'Arial', sans-serif;
+    }
+
+    header {
       text-align: center;
+      padding: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: #1b222a;
+      border-bottom: 1px solid #2a2f35;
     }
 
-    h1 {
-      margin-bottom: 2rem;
-    }
-
-    .button {
-      background-color: #2AABEE;
-      color: white;
-      padding: 1rem;
-      margin: 1rem auto;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      width: 90%;
-      max-width: 320px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    img.icon {
-      width: 30px;
-      height: 30px;
-    }
-
-    #game-list, #item-list {
-      display: none;
-    }
-
-    .visible {
-      display: block !important;
-    }
-
-    .menu-title {
+    .section-title {
+      margin: 1rem;
       font-size: 1.2rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      color: #ccc;
     }
 
-    .item-content {
+    .game-list {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 0 1rem 1rem;
     }
 
-    .item-label {
-      flex-grow: 1;
-      text-align: left;
+    .game {
+      flex: 0 0 auto;
+      background-color: #1f2833;
+      padding: 0.5rem;
+      border-radius: 10px;
+      text-align: center;
+      width: 80px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .game:hover {
+      border-color: #2aabee;
+    }
+
+    .game img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0.5rem;
+    }
+
+    .items-grid {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .item-card {
+      background-color: #1f2833;
+      border-radius: 10px;
+      padding: 0.5rem;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .item-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-title {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .item-price {
+      font-size: 0.9rem;
+      color: #9eff9e;
+    }
+
+    .badge {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background: #ff4444;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Добро пожаловать в магазин</h1>
+  <header>Добро пожаловать в магазин</header>
 
-  <div id="game-list" class="visible">
-    <div class="menu-title">Выберите игру</div>
-    <button class="button" onclick="selectGame('brawl-stars')">
-      <div class="item-content">
-        <img src=" " alt="Brawl Stars" class="icon">
-        <span class="item-label">Brawl Stars</span>
-      </div>
-    </button>
+  <div class="section-title">Выберите игру</div>
+  <div class="game-list">
+    <div class="game" onclick="selectGame()">
+      <img src=" " alt="Brawl Stars">
+      <div>Brawl Stars</div>
+    </div>
+    <!-- Можно добавить другие игры здесь -->
   </div>
 
-  <div id="item-list">
-    <div class="menu-title">Товары для Brawl Stars</div>
+  <div id="items" class="items-grid">
+    <div class="item-card" onclick="buyItem('Brawl Pass — 100000 UZS')">
+      <div class="badge">Скидка!</div>
+      <img src=" " alt="Brawl Pass">
+      <div class="item-title">Brawl Pass</div>
+      <div class="item-price">100000 UZS</div>
+    </div>
 
-    <button class="button" onclick="buyItem('Brawl Pass — 100000 UZS')">
-      <div class="item-content">
-        <img src=" " alt="Brawl Pass" class="icon">
-        <span class="item-label">Brawl Pass</span>
-      </div>
-      <span>100000 UZS</span>
-    </button>
+    <div class="item-card" onclick="buyItem('Brawl Pass+ — 175000 UZS')">
+      <div class="badge">Скидка!</div>
+      <img src=" " alt="Brawl Pass+">
+      <div class="item-title">Brawl Pass+</div>
+      <div class="item-price">175000 UZS</div>
+    </div>
 
-    <button class="button" onclick="buyItem('Brawl Pass+ — 175000 UZS')">
-      <div class="item-content">
-        <img src=" " alt="Brawl Pass+" class="icon">
-        <span class="item-label">Brawl Pass+</span>
-      </div>
-      <span>175000 UZS</span>
-    </button>
-
-    <button class="button" onclick="buyItem('170 гемов — 200000 UZS')">
-      <div class="item-content">
-        <img src=" " alt="170 гемов" class="icon">
-        <span class="item-label">170 гемов</span>
-      </div>
-      <span>200000 UZS</span>
-    </button>
+    <div class="item-card" onclick="buyItem('170 гемов — 200000 UZS')">
+      <div class="badge">Скидка!</div>
+      <img src=" " alt="170 гемов">
+      <div class="item-title">170 гемов</div>
+      <div class="item-price">200000 UZS</div>
+    </div>
   </div>
 
   <script>
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    function selectGame(game) {
-      if (game === 'brawl-stars') {
-        document.getElementById('game-list').classList.remove('visible');
-        document.getElementById('item-list').classList.add('visible');
-      }
+    function selectGame() {
+      document.getElementById('items').style.display = 'grid';
     }
 
     function buyItem(data) {
@@ -124,4 +151,3 @@
   </script>
 </body>
 </html>
-
