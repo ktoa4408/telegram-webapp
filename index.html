@@ -9,33 +9,119 @@
       background-color: #1e1e1e;
       color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
       padding: 2rem;
+      text-align: center;
     }
+
+    h1 {
+      margin-bottom: 2rem;
+    }
+
     .button {
       background-color: #2AABEE;
       color: white;
-      padding: 1rem 2rem;
+      padding: 1rem;
+      margin: 1rem auto;
       border: none;
       border-radius: 10px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      width: 90%;
+      max-width: 320px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    img.icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    #game-list, #item-list {
+      display: none;
+    }
+
+    .visible {
+      display: block !important;
+    }
+
+    .menu-title {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .item-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item-label {
+      flex-grow: 1;
+      text-align: left;
     }
   </style>
 </head>
 <body>
-  <h1>Добро пожаловать в магазин!</h1>
-  <p>Выберите товар и оформите заказ</p>
-  <button class="button" onclick="sendOrder()">Купить</button>
+  <h1>Добро пожаловать в магазин</h1>
+
+  <div id="game-list" class="visible">
+    <div class="menu-title">Выберите игру</div>
+    <button class="button" onclick="selectGame('brawl-stars')">
+      <div class="item-content">
+        <img src=" " alt="Brawl Stars" class="icon">
+        <span class="item-label">Brawl Stars</span>
+      </div>
+    </button>
+  </div>
+
+  <div id="item-list">
+    <div class="menu-title">Товары для Brawl Stars</div>
+
+    <button class="button" onclick="buyItem('Brawl Pass — 100000 UZS')">
+      <div class="item-content">
+        <img src=" " alt="Brawl Pass" class="icon">
+        <span class="item-label">Brawl Pass</span>
+      </div>
+      <span>100000 UZS</span>
+    </button>
+
+    <button class="button" onclick="buyItem('Brawl Pass+ — 175000 UZS')">
+      <div class="item-content">
+        <img src=" " alt="Brawl Pass+" class="icon">
+        <span class="item-label">Brawl Pass+</span>
+      </div>
+      <span>175000 UZS</span>
+    </button>
+
+    <button class="button" onclick="buyItem('170 гемов — 200000 UZS')">
+      <div class="item-content">
+        <img src=" " alt="170 гемов" class="icon">
+        <span class="item-label">170 гемов</span>
+      </div>
+      <span>200000 UZS</span>
+    </button>
+  </div>
 
   <script>
     const tg = window.Telegram.WebApp;
-    tg.expand(); // Расширяет WebApp на весь экран
+    tg.expand();
 
-    function sendOrder() {
-      tg.sendData("Пользователь хочет купить товар!"); // Отправляет данные боту
-      tg.close(); // Закрывает WebApp
+    function selectGame(game) {
+      if (game === 'brawl-stars') {
+        document.getElementById('game-list').classList.remove('visible');
+        document.getElementById('item-list').classList.add('visible');
+      }
+    }
+
+    function buyItem(data) {
+      tg.sendData(data);
+      tg.close();
     }
   </script>
 </body>
 </html>
+
